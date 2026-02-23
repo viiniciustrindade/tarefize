@@ -78,7 +78,7 @@ public class TarefaController {
                 .build();
     }
 
-    @PutMapping("/concluir/{idTarefa}")
+    @PatchMapping("/{idTarefa}/concluir/")
     public ResponseEntity<Void> concluirTarefa(
             @PathVariable Long idTarefa,
             @AuthenticationPrincipal Usuario usuario
