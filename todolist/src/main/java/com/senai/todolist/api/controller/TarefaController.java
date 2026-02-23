@@ -78,4 +78,14 @@ public class TarefaController {
                 .build();
     }
 
+    @PutMapping("/concluir/{idTarefa}")
+    public ResponseEntity<Void> concluirTarefa(
+            @PathVariable Long idTarefa,
+            @AuthenticationPrincipal Usuario usuario
+    ){
+        tarefaService.concluirTarefa(idTarefa,usuario);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .build();
+    }
 }

@@ -59,10 +59,20 @@ public class TarefaService {
     }
 
     public void deletarTarefaPorId(Usuario usuario, Long idTarefa) {
-        if(tarefaRepository.existsByIdAndUsuario(idTarefa,usuario)){
-           tarefaRepository.deleteById(idTarefa);
+        if(!tarefaRepository.existsByIdAndUsuario(idTarefa,usuario)){
+            throw new TarefaNãoExisteException(idTarefa);
         }
 
-        throw new TarefaNãoExisteException(idTarefa);
+        tarefaRepository.deleteById(idTarefa);
+    }
+
+    public void concluirTarefa(
+            Long idTarefa, Usuario usuario){
+        Tarefa tarefa = tarefaRepository.findByIdAndUsuario(idTarefa, usuario)
+                .orElseThrow(() -> new TarefaNãoExisteException(idTarefa));
+
+        tarefa.setConcluida(true);
+        tarefaRepository.save(tarefa);
+
     }
 }
