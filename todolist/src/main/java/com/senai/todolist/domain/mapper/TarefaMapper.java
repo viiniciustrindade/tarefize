@@ -15,6 +15,7 @@ public class TarefaMapper {
         return new TarefaRespostaDto(tarefa.getId(),
                 tarefa.getNomeTarefa(),
                 tarefa.getDescricaoTarefa(),
-                tarefa.getPrioridade());
+                tarefa.getPrioridade(),
+                tarefa.getDataCriacao());
     }
 }

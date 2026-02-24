@@ -1,9 +1,12 @@
 package com.senai.todolist.domain.dto.tarefa;
 
+import java.time.LocalDate;
+
 public record TarefaRespostaDto(
         Long id,
         String nomeTarefa,
         String descricaoTarefa,
-        int prioridade
+        int prioridade,
+        LocalDate dataCricao
 ) {
 }

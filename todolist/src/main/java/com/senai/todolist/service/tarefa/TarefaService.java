@@ -25,8 +25,8 @@ public class TarefaService {
         Tarefa tarefa = tarefaMapper.toEntity(tarefaRequisicaoDto);
         tarefa.setUsuario(usuario);
 
-        Tarefa tarefaSalva = tarefaRepository.save(tarefa);
-        return tarefaMapper.toRespostaDto(tarefaSalva);
+        tarefaRepository.save(tarefa);
+        return tarefaMapper.toRespostaDto(tarefa);
     }
 
     public Page<TarefaRespostaDto> buscarTodasAsTarefas(
@@ -54,8 +54,8 @@ public class TarefaService {
             tarefa.setPrioridade(patchDto.prioridade());
         }
 
-        Tarefa tarefaSalva = tarefaRepository.save(tarefa);
-        return tarefaMapper.toRespostaDto(tarefaSalva);
+        tarefaRepository.save(tarefa);
+        return tarefaMapper.toRespostaDto(tarefa);
     }
 
     public void deletarTarefaPorId(Usuario usuario, Long idTarefa) {
@@ -73,6 +73,5 @@ public class TarefaService {
 
         tarefa.setConcluida(true);
         tarefaRepository.save(tarefa);
-
     }
 }

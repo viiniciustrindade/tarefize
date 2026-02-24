@@ -1,6 +1,5 @@
-package com.senai.todolist.api.controller;
+package com.senai.todolist.api.controller.login;
 
-import com.senai.todolist.domain.dto.usuario.cadastro.UsuarioRequisicaoDto;
 import com.senai.todolist.domain.dto.usuario.login.LoginUserDto;
 import com.senai.todolist.domain.dto.usuario.login.RecoveryJwtTokenDto;
 import com.senai.todolist.service.auth.AuthService;

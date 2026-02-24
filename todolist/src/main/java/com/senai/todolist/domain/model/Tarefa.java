@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.w3c.dom.Text;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "tarefa")
 @Getter
@@ -27,6 +30,9 @@ public class Tarefa {
     @Column(nullable = false)
     private int prioridade;
 
+    @Column(name = "data_criacao" ,nullable = false)
+    private LocalDate dataCriacao;
+
     @Column(nullable = false)
     private boolean concluida;
 
@@ -38,8 +44,8 @@ public class Tarefa {
         this.nomeTarefa = nomeTarefa;
         this.descricaoTarefa = descricaoTarefa;
         this.prioridade = prioridade;
-        concluida = false;
+        this.concluida = false;
+        this.dataCriacao=LocalDate.now();
     }
-
 }
 

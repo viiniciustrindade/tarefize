@@ -1,4 +1,4 @@
-package com.senai.todolist.api.controller;
+package com.senai.todolist.api.controller.tarefa;
 
 import com.senai.todolist.domain.dto.tarefa.TarefaPatchDto;
 import com.senai.todolist.domain.dto.tarefa.TarefaRequisicaoDto;
@@ -17,7 +17,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/tarefas")
