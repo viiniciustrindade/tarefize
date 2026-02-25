@@ -14,4 +14,5 @@ public interface TarefaRepository extends JpaRepository<Tarefa,Long> {
     Page<Tarefa> findByUsuario(Usuario usuario, Pageable pageable);
     Optional<Tarefa> findByIdAndUsuario(Long id, Usuario usuario);
     boolean existsByIdAndUsuario(Long idTarefa, Usuario usuario);
+    Page<Tarefa> findAllByUsuarioAndConcluida(Usuario usuario, Boolean concluida, Pageable pageable);
 }
