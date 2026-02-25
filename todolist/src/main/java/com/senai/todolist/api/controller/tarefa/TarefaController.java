@@ -68,7 +68,7 @@ public class TarefaController {
     }
 
     @DeleteMapping("/{idTarefa}")
-    public ResponseEntity<Void> deletarTarefa(
+    public ResponseEntity<Void> deletarTarefaPorId(
             @PathVariable Long idTarefa,
             @AuthenticationPrincipal Usuario usuario
     ){
@@ -77,7 +77,7 @@ public class TarefaController {
                 .build();
     }
 
-    @PatchMapping("/{idTarefa}/concluir/")
+    @PatchMapping("/{idTarefa}/concluir")
     public ResponseEntity<Void> concluirTarefa(
             @PathVariable Long idTarefa,
             @AuthenticationPrincipal Usuario usuario
@@ -87,4 +87,13 @@ public class TarefaController {
         return ResponseEntity.status(HttpStatus.OK)
                 .build();
     }
+
+    @GetMapping("/{idTarefa}")
+    public ResponseEntity<TarefaRespostaDto> buscarTarefaPorId(
+            @PathVariable Long idTarefa,
+            @AuthenticationPrincipal Usuario usuario
+    ){
+         return ResponseEntity.ok(tarefaService.buscarTarefaPorId(idTarefa, usuario));
+    }
+
 }

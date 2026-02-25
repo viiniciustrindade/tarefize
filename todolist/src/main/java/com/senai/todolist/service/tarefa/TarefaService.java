@@ -74,4 +74,11 @@ public class TarefaService {
         tarefa.setConcluida(true);
         tarefaRepository.save(tarefa);
     }
+
+    public TarefaRespostaDto buscarTarefaPorId(Long idTarefa, Usuario usuario) {
+        Tarefa tarefa = tarefaRepository.findById(idTarefa)
+                .orElseThrow(() -> new TarefaNãoExisteException(idTarefa));
+
+        return tarefaMapper.toRespostaDto(tarefa);
+    }
 }

@@ -96,7 +96,7 @@ class TarefaControllerIT {
         t.setUsuario(usuarioPadrao);
         tarefaRepository.save(t);
 
-        mockMvc.perform(patch("/api/tarefas/" + t.getId() + "/concluir/")
+        mockMvc.perform(patch("/api/tarefas/" + t.getId() + "/concluir")
                         .with(csrf()))
                 .andExpect(status().isOk());
 
@@ -142,11 +142,10 @@ class TarefaControllerIT {
     @DisplayName("Deve retornar 404 ao tentar concluir uma tarefa que não existe")
     @WithUserDetails(value = "vinicius@teste.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void concluirTarefaInexistente() throws Exception {
-        // Act & Assert
-        mockMvc.perform(patch("/api/tarefas/999/concluir/") // ID que não existe no H2
+
+        mockMvc.perform(patch("/api/tarefas/999/concluir")
                         .with(csrf()))
                 .andExpect(status().isNotFound());
-        // Nota: Verifique se sua BusinessException mapeia para HttpStatus.NOT_FOUND
     }
 
     @Test
@@ -172,7 +171,7 @@ class TarefaControllerIT {
     @WithUserDetails(value = "vinicius@teste.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void deveRetornar404ComCorpoFormatado() throws Exception {
 
-        mockMvc.perform(patch("/api/tarefas/999/concluir/")
+        mockMvc.perform(patch("/api/tarefas/999/concluir")
                         .with(csrf()))
                 .andExpect(status().isNotFound()) // O status vem do seu ErrorCode dentro da BusinessException
                 .andExpect(jsonPath("$.status").value(404))
