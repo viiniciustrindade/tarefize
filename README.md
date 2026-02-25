@@ -53,3 +53,20 @@ O projeto segue os princípios da **Arquitetura em Camadas** e **SOLID**, garant
 
 4. **Acessar a Documentação:**
    Abra o navegador em `http://localhost:8081/swagger-ui.html` para testar os endpoints através do Swagger.
+
+
+## 🧪 Qualidade e Testes
+
+O projeto conta com uma suíte de testes automatizados para garantir a confiabilidade das regras de negócio e a integridade dos endpoints:
+
+* **Testes de Integração:** Implementados com `MockMvc` para validar o ciclo completo das requisições (Controller -> Service -> Repository), garantindo que a autenticação JWT e as permissões de acesso estejam funcionando corretamente.
+* **Perfis de Teste:** Uso de `@ActiveProfiles("test")` para isolar o ambiente de desenvolvimento do ambiente de testes.
+* **Validação de Erros:** Testes específicos para garantir que o `GlobalExceptionHandler` retorne os códigos HTTP e mensagens corretas em cenários de exceção.
+
+## ☁️ Deploy e CI/CD
+
+A aplicação está totalmente produtiva e integrada com ferramentas modernas de automação:
+
+* **CI/CD (GitHub Actions):** Pipeline configurado para executar automaticamente toda a suíte de testes a cada `push` ou `pull request`. O deploy só é liberado se todos os testes passarem.
+* **Hospedagem (Render):** API hospedada no Render, conectada a um banco de dados PostgreSQL gerenciado.
+* **Segurança em Produção:** Uso rigoroso de variáveis de ambiente para proteção de segredos (JWT Secret, Database Credentials), seguindo as melhores práticas de segurança do mercado.
