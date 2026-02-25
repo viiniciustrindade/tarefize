@@ -22,5 +22,5 @@ jobs:
           cache: maven
 
       - name: Rodar todos os testes com Maven
-        run: mvn clean verify
+        run: mvn clean verify -Dspring.profiles.active=test
         working-directory: ./todolist
