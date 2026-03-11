@@ -27,8 +27,7 @@ public class TarefaController {
     @PostMapping
     public ResponseEntity<TarefaRespostaDto> criarTarefa(
             @Valid @RequestBody TarefaRequisicaoDto requisicaoDto,
-            @AuthenticationPrincipal Usuario usuario,
-            UriComponentsBuilder uriBuilder
+            @AuthenticationPrincipal Usuario usuario
     ){
         TarefaRespostaDto resposta =
                 tarefaService.criarTarefa(usuario,requisicaoDto);
