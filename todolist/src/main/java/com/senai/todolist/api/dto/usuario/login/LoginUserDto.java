@@ -1,4 +1,4 @@
-package com.senai.todolist.domain.dto.usuario.login;
+package com.senai.todolist.api.dto.usuario.login;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

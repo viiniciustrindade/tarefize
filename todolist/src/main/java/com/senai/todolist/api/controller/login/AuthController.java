@@ -1,7 +1,7 @@
 package com.senai.todolist.api.controller.login;
 
-import com.senai.todolist.domain.dto.usuario.login.LoginUserDto;
-import com.senai.todolist.domain.dto.usuario.login.RecoveryJwtTokenDto;
+import com.senai.todolist.api.dto.usuario.login.LoginUserDto;
+import com.senai.todolist.api.dto.usuario.login.RecoveryJwtTokenDto;
 import com.senai.todolist.service.auth.AuthService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

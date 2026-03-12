@@ -1,12 +1,13 @@
 package com.senai.todolist.service.tarefa;
 
-import com.senai.todolist.domain.dto.tarefa.TarefaRequisicaoDto;
-import com.senai.todolist.domain.dto.tarefa.TarefaRespostaDto;
+import com.senai.todolist.api.dto.tarefa.TarefaRequisicaoDto;
+import com.senai.todolist.api.dto.tarefa.TarefaRespostaDto;
 import com.senai.todolist.domain.exception.TarefaNãoExisteException;
-import com.senai.todolist.domain.mapper.TarefaMapper;
+import com.senai.todolist.api.mapper.TarefaMapper;
 import com.senai.todolist.domain.model.Tarefa;
 import com.senai.todolist.domain.model.Usuario;
 import com.senai.todolist.infraecstruture.repository.TarefaRepository;
+import com.senai.todolist.service.event.NotificacaoEvento;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,9 @@ class TarefaServiceTest {
 
     @Mock
     private TarefaRepository tarefaRepository;
+
+    @Mock
+    private NotificacaoService notificacaoService;
 
     @Mock
     private TarefaMapper tarefaMapper;
@@ -68,6 +72,7 @@ class TarefaServiceTest {
         assertNotNull(resultado);
         assertEquals(respostaDto.nomeTarefa(), resultado.nomeTarefa());
         verify(tarefaRepository, times(1)).save(tarefa);
+        verify(notificacaoService, times(1)).enviar(any(NotificacaoEvento.class));
         assertEquals(usuario, tarefa.getUsuario());
     }
 

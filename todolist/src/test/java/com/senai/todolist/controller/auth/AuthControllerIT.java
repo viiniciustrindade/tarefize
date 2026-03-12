@@ -1,7 +1,7 @@
 package com.senai.todolist.controller.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.senai.todolist.domain.dto.usuario.login.LoginUserDto;
+import com.senai.todolist.api.dto.usuario.login.LoginUserDto;
 import com.senai.todolist.domain.model.RoleName;
 import com.senai.todolist.domain.model.Usuario;
 import com.senai.todolist.infraecstruture.repository.UsuarioRepository;

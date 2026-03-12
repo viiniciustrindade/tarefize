@@ -1,4 +1,4 @@
-package com.senai.todolist.domain.dto.usuario.login;
+package com.senai.todolist.api.dto.usuario.login;
 
 import com.senai.todolist.domain.model.Role;
 

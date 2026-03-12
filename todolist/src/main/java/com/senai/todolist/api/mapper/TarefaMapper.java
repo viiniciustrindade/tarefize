@@ -1,7 +1,7 @@
-package com.senai.todolist.domain.mapper;
+package com.senai.todolist.api.mapper;
 
-import com.senai.todolist.domain.dto.tarefa.TarefaRequisicaoDto;
-import com.senai.todolist.domain.dto.tarefa.TarefaRespostaDto;
+import com.senai.todolist.api.dto.tarefa.TarefaRequisicaoDto;
+import com.senai.todolist.api.dto.tarefa.TarefaRespostaDto;
 import com.senai.todolist.domain.model.Tarefa;
 import org.springframework.stereotype.Component;
 

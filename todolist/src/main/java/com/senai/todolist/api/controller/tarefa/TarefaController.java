@@ -1,8 +1,8 @@
 package com.senai.todolist.api.controller.tarefa;
 
-import com.senai.todolist.domain.dto.tarefa.TarefaPatchDto;
-import com.senai.todolist.domain.dto.tarefa.TarefaRequisicaoDto;
-import com.senai.todolist.domain.dto.tarefa.TarefaRespostaDto;
+import com.senai.todolist.api.dto.tarefa.TarefaPatchDto;
+import com.senai.todolist.api.dto.tarefa.TarefaRequisicaoDto;
+import com.senai.todolist.api.dto.tarefa.TarefaRespostaDto;
 import com.senai.todolist.domain.model.Usuario;
 import com.senai.todolist.service.tarefa.TarefaService;
 import jakarta.validation.Valid;

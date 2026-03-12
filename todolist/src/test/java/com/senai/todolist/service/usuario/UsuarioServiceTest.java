@@ -1,6 +1,6 @@
 package com.senai.todolist.service.usuario;
 
-import com.senai.todolist.domain.dto.usuario.cadastro.UsuarioRequisicaoDto;
+import com.senai.todolist.api.dto.usuario.cadastro.UsuarioRequisicaoDto;
 import com.senai.todolist.domain.model.Usuario;
 import com.senai.todolist.infraecstruture.repository.UsuarioRepository;
 import org.junit.jupiter.api.DisplayName;
