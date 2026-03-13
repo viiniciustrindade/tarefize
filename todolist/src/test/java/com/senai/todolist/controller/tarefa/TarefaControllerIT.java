@@ -1,11 +1,12 @@
 package com.senai.todolist.controller.tarefa;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.senai.todolist.domain.dto.tarefa.TarefaPatchDto;
-import com.senai.todolist.domain.dto.tarefa.TarefaRequisicaoDto;
+import com.senai.todolist.api.dto.tarefa.TarefaPatchDto;
+import com.senai.todolist.api.dto.tarefa.TarefaRequisicaoDto;
 import com.senai.todolist.domain.model.RoleName;
 import com.senai.todolist.domain.model.Tarefa;
 import com.senai.todolist.domain.model.Usuario;
+import com.senai.todolist.infraecstruture.repository.FailedEventRepository;
 import com.senai.todolist.infraecstruture.repository.TarefaRepository;
 import com.senai.todolist.infraecstruture.repository.UsuarioRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,12 +16,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.security.test.context.support.TestExecutionEvent;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -30,6 +37,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Transactional
+@EmbeddedKafka(partitions = 1, brokerProperties = { "listeners=PLAINTEXT://localhost:9092", "port=9092" })
 class TarefaControllerIT {
 
     @Autowired
@@ -43,6 +51,12 @@ class TarefaControllerIT {
 
     @Autowired
     private TarefaRepository tarefaRepository;
+
+    @MockitoSpyBean
+    private KafkaTemplate kafkaTemplate;
+
+    @Autowired
+    private FailedEventRepository failedEventRepository;
 
     private Usuario usuarioPadrao;
 
@@ -75,10 +89,31 @@ class TarefaControllerIT {
     }
 
     @Test
+    @DisplayName("Deve retornar 503 mas garantir que a falha foi salva no banco")
+    @WithUserDetails(value = "vinicius@teste.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    void deveCriarTarefaESalvarNoBancoDeFalhasQuandoKafkaCai() throws Exception {
+        // Arrange
+        TarefaRequisicaoDto dto = new TarefaRequisicaoDto("Tarefa com Erro Kafka", "Testando Resiliência", 3);
+
+        doThrow(new RuntimeException("Simulação de queda do Broker"))
+                .when(kafkaTemplate).send(anyString(), anyString(), any());
+
+        // Act
+        mockMvc.perform(post("/api/tarefas")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().isServiceUnavailable());
+        var falhas = failedEventRepository.findAll();
+        assertEquals(1, falhas.size(), "O evento deve ser salvo mesmo que o controller retorne erro");
+        assertTrue(falhas.get(0).getPayload().contains("Tarefa com Erro Kafka"));
+    }
+
+    @Test
     @DisplayName("Deve listar tarefas do usuário logado (GET)")
     @WithUserDetails(value = "vinicius@teste.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void listarTarefas() throws Exception {
-        // Salva uma tarefa manualmente no banco
+
         Tarefa t = new Tarefa("Tarefa Existente", "Desc", 3);
         t.setUsuario(usuarioPadrao);
         tarefaRepository.save(t);

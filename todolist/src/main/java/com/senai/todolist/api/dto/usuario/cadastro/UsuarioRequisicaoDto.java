@@ -1,4 +1,4 @@
-package com.senai.todolist.domain.dto.usuario.cadastro;
+package com.senai.todolist.api.dto.usuario.cadastro;
 
 import com.senai.todolist.domain.model.RoleName;
 import jakarta.validation.constraints.Email;

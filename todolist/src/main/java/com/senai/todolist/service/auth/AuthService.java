@@ -1,16 +1,13 @@
 package com.senai.todolist.service.auth;
 
-import com.senai.todolist.domain.dto.usuario.cadastro.UsuarioRequisicaoDto;
-import com.senai.todolist.domain.dto.usuario.login.LoginUserDto;
-import com.senai.todolist.domain.dto.usuario.login.RecoveryJwtTokenDto;
+import com.senai.todolist.api.dto.usuario.login.LoginUserDto;
+import com.senai.todolist.api.dto.usuario.login.RecoveryJwtTokenDto;
 import com.senai.todolist.domain.model.Usuario;
-import com.senai.todolist.infraecstruture.repository.UsuarioRepository;
 import com.senai.todolist.infraecstruture.security.JwtTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service

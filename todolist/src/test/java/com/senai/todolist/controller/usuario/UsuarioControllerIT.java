@@ -1,7 +1,7 @@
 package com.senai.todolist.controller.usuario;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.senai.todolist.domain.dto.usuario.cadastro.UsuarioRequisicaoDto;
+import com.senai.todolist.api.dto.usuario.cadastro.UsuarioRequisicaoDto;
 import com.senai.todolist.infraecstruture.repository.UsuarioRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

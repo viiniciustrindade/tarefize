@@ -1,22 +1,28 @@
 package com.senai.todolist.service.tarefa;
 
-import com.senai.todolist.domain.dto.tarefa.TarefaPatchDto;
-import com.senai.todolist.domain.dto.tarefa.TarefaRequisicaoDto;
-import com.senai.todolist.domain.dto.tarefa.TarefaRespostaDto;
+import com.senai.todolist.api.dto.tarefa.TarefaPatchDto;
+import com.senai.todolist.api.dto.tarefa.TarefaRequisicaoDto;
+import com.senai.todolist.api.dto.tarefa.TarefaRespostaDto;
 import com.senai.todolist.domain.exception.TarefaNãoExisteException;
-import com.senai.todolist.domain.mapper.TarefaMapper;
+import com.senai.todolist.api.mapper.TarefaMapper;
 import com.senai.todolist.domain.model.Tarefa;
 import com.senai.todolist.domain.model.Usuario;
 import com.senai.todolist.infraecstruture.repository.TarefaRepository;
+import com.senai.todolist.service.event.NotificacaoEvento;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Map;
+
 @RequiredArgsConstructor
 @Service
 public class TarefaService {
     private final TarefaRepository tarefaRepository;
+
+    private final NotificacaoService notificationService;
 
     private final TarefaMapper tarefaMapper;
 
@@ -26,6 +32,20 @@ public class TarefaService {
         tarefa.setUsuario(usuario);
 
         tarefaRepository.save(tarefa);
+
+        NotificacaoEvento notificacao = new NotificacaoEvento(
+                usuario.getEmail(),
+                "EMAIL",
+                "TAREFA_CRIADA",
+                Map.of(
+                    "nomeTarefa", tarefa.getNomeTarefa(),
+                    "descricao", tarefa.getDescricaoTarefa(),
+                    "dataCriacao", LocalDateTime.now().toString()
+                )
+        );
+
+        notificationService.enviar(notificacao);
+
         return tarefaMapper.toRespostaDto(tarefa);
     }
 

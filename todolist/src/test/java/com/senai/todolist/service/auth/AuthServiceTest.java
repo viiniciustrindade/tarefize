@@ -1,7 +1,7 @@
 package com.senai.todolist.service.auth;
 
-import com.senai.todolist.domain.dto.usuario.login.LoginUserDto;
-import com.senai.todolist.domain.dto.usuario.login.RecoveryJwtTokenDto;
+import com.senai.todolist.api.dto.usuario.login.LoginUserDto;
+import com.senai.todolist.api.dto.usuario.login.RecoveryJwtTokenDto;
 import com.senai.todolist.domain.model.Usuario;
 import com.senai.todolist.infraecstruture.security.JwtTokenService;
 import org.junit.jupiter.api.DisplayName;

@@ -1,6 +1,7 @@
 package com.senai.todolist.service.usuario;
 
-import com.senai.todolist.domain.dto.usuario.cadastro.UsuarioRequisicaoDto;
+import com.senai.todolist.api.dto.usuario.cadastro.UsuarioRequisicaoDto;
+import com.senai.todolist.domain.exception.EmailJaCadastradoException;
 import com.senai.todolist.domain.model.Usuario;
 import com.senai.todolist.infraecstruture.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
@@ -17,6 +18,8 @@ public class UsuarioService {
 
     @Transactional
     public void registrarUsuario(UsuarioRequisicaoDto usuarioRequisicaoDto) {
+        validarEmailUnico(usuarioRequisicaoDto.email());
+
         Usuario usuario = new Usuario(
                 usuarioRequisicaoDto.nome(),
                 usuarioRequisicaoDto.email(),
@@ -24,5 +27,11 @@ public class UsuarioService {
         );
 
         usuarioRepository.save(usuario);
+    }
+
+    private void validarEmailUnico(String email){
+        if(usuarioRepository.existsByEmail(email)){
+            throw new EmailJaCadastradoException();
+        }
     }
 }

@@ -1,8 +1,8 @@
 package com.senai.todolist.api.controller.usuario;
 
-import com.senai.todolist.domain.dto.usuario.cadastro.UsuarioRequisicaoDto;
-import com.senai.todolist.domain.dto.usuario.login.LoginUserDto;
-import com.senai.todolist.domain.dto.usuario.login.RecoveryJwtTokenDto;
+import com.senai.todolist.api.dto.usuario.cadastro.UsuarioRequisicaoDto;
+import com.senai.todolist.api.dto.usuario.login.LoginUserDto;
+import com.senai.todolist.api.dto.usuario.login.RecoveryJwtTokenDto;
 import com.senai.todolist.service.auth.AuthService;
 import com.senai.todolist.service.usuario.UsuarioService;
 import jakarta.validation.Valid;

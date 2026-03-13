@@ -1,4 +1,4 @@
-package com.senai.todolist.domain.dto.tarefa;
+package com.senai.todolist.api.dto.tarefa;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
