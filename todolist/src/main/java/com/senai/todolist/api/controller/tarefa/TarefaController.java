@@ -7,6 +7,7 @@ import com.senai.todolist.domain.model.Usuario;
 import com.senai.todolist.service.tarefa.TarefaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -44,7 +45,7 @@ public class TarefaController {
 
     @GetMapping
     public ResponseEntity<Page<TarefaRespostaDto>> buscarTodasAsTarefas(
-            Pageable pageable,
+            @ParameterObject Pageable pageable,
             @AuthenticationPrincipal Usuario usuario
     ){
         Page<TarefaRespostaDto> pagina =
