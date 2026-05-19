@@ -1,10 +1,10 @@
 package com.senai.todolist.controller.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.senai.todolist.api.dto.usuario.login.LoginUserDto;
+import com.senai.todolist.api.dto.user.login.LoginUserDto;
 import com.senai.todolist.domain.model.RoleName;
-import com.senai.todolist.domain.model.Usuario;
-import com.senai.todolist.infraecstruture.repository.UsuarioRepository;
+import com.senai.todolist.domain.model.User;
+import com.senai.todolist.infraecstruture.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,18 +34,18 @@ class AuthControllerIT {
     private ObjectMapper objectMapper;
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @BeforeEach
     void setup() {
-        usuarioRepository.deleteAll();
+        userRepository.deleteAll();
 
-        Usuario usuario = new Usuario("Vini", "vini@teste.com", passwordEncoder.encode("senha123"));
-        usuario.setRole(RoleName.ROLE_USER);
-        usuarioRepository.save(usuario);
+        User user = new User("Vini", "vini@teste.com", passwordEncoder.encode("senha123"));
+        user.setRole(RoleName.ROLE_USER);
+        userRepository.save(user);
     }
 
     @Test

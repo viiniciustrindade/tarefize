@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.senai.todolist.domain.exception.NotificationMessagingException;
 import com.senai.todolist.domain.model.FailedEvent;
 import com.senai.todolist.infraecstruture.repository.FailedEventRepository;
-import com.senai.todolist.service.event.NotificacaoEvento;
+import com.senai.todolist.service.event.NotificationEvent;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,7 +18,6 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,12 +33,12 @@ class KafkaNotificacaoProdutorTest {
     private ObjectMapper objectMapper;
 
     @InjectMocks
-    private KafkaNotificacaoProdutor produtor;
+    private KafkaNotificationProdutor produtor;
 
     @Test
     @DisplayName("Deve salvar no banco de falhas e lançar exceção quando o Kafka falhar")
     void deveSalvarNoBancoQuandoKafkaFalhar() throws JsonProcessingException {
-        var evento = new NotificacaoEvento(
+        var evento = new NotificationEvent(
                 "vinicius@teste.com",
                 "EMAIL",
                 "TAREFA_CRIADA",
@@ -61,7 +60,7 @@ class KafkaNotificacaoProdutorTest {
     @Test
     @DisplayName("Deve enviar com sucesso e não salvar no banco")
     void deveEnviarComSucesso() {
-        var evento = new NotificacaoEvento(
+        var evento = new NotificationEvent(
                 "vinicius@teste.com",
                 "EMAIL",
                 "TAREFA_CRIADA",

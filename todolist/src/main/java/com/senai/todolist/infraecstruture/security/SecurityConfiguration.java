@@ -50,7 +50,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/h2-console/**").permitAll()
 
                         .requestMatchers(HttpMethod.POST, "/api/auth").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
 
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().authenticated()
