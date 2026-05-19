@@ -1,8 +1,8 @@
 package com.senai.todolist.service.auth;
 
-import com.senai.todolist.api.dto.usuario.login.LoginUserDto;
-import com.senai.todolist.api.dto.usuario.login.RecoveryJwtTokenDto;
-import com.senai.todolist.domain.model.Usuario;
+import com.senai.todolist.api.dto.user.login.LoginUserDto;
+import com.senai.todolist.api.dto.user.login.RecoveryJwtTokenDto;
+import com.senai.todolist.domain.model.User;
 import com.senai.todolist.infraecstruture.security.JwtTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,15 +17,15 @@ public class AuthService {
 
     private final JwtTokenService jwtTokenService;
 
-    public RecoveryJwtTokenDto autenticarUsuario(
+    public RecoveryJwtTokenDto userAuthenticate(
             LoginUserDto userDto
     ){
         UsernamePasswordAuthenticationToken token =
-                new UsernamePasswordAuthenticationToken(userDto.email(), userDto.senha());
+                new UsernamePasswordAuthenticationToken(userDto.email(), userDto.password());
 
         Authentication authentication = authenticationManager.authenticate(token);
 
-        Usuario usuario = (Usuario) authentication.getPrincipal();
+        User usuario = (User) authentication.getPrincipal();
 
         return new RecoveryJwtTokenDto(jwtTokenService.generateToken(usuario));
     }

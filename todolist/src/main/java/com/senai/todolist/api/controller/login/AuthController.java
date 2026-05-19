@@ -1,7 +1,7 @@
 package com.senai.todolist.api.controller.login;
 
-import com.senai.todolist.api.dto.usuario.login.LoginUserDto;
-import com.senai.todolist.api.dto.usuario.login.RecoveryJwtTokenDto;
+import com.senai.todolist.api.dto.user.login.LoginUserDto;
+import com.senai.todolist.api.dto.user.login.RecoveryJwtTokenDto;
 import com.senai.todolist.service.auth.AuthService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -19,10 +19,10 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping
-    public ResponseEntity<RecoveryJwtTokenDto> loginUsuario(
-            @Valid @RequestBody LoginUserDto requisicao
+    public ResponseEntity<RecoveryJwtTokenDto> login(
+            @Valid @RequestBody LoginUserDto request
     ){
         return ResponseEntity.status(HttpStatus.OK)
-                .body(authService.autenticarUsuario(requisicao));
+                .body(authService.userAuthenticate(request));
     }
 }

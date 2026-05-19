@@ -1,7 +1,6 @@
 package com.senai.todolist.infraecstruture.security;
 
-import com.senai.todolist.domain.model.Usuario;
-import com.senai.todolist.infraecstruture.repository.UsuarioRepository;
+import com.senai.todolist.infraecstruture.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService{
-    private final UsuarioRepository usuarioRepository;
+    private final UserRepository usuarioRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

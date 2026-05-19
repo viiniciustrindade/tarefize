@@ -1,8 +1,8 @@
 package com.senai.todolist.service.auth;
 
-import com.senai.todolist.api.dto.usuario.login.LoginUserDto;
-import com.senai.todolist.api.dto.usuario.login.RecoveryJwtTokenDto;
-import com.senai.todolist.domain.model.Usuario;
+import com.senai.todolist.api.dto.user.login.LoginUserDto;
+import com.senai.todolist.api.dto.user.login.RecoveryJwtTokenDto;
+import com.senai.todolist.domain.model.User;
 import com.senai.todolist.infraecstruture.security.JwtTokenService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,14 +36,14 @@ class AuthServiceTest {
     void autenticarComSucesso() {
 
         var loginDto = new LoginUserDto("vini@teste.com", "12345678");
-        var usuarioMock = new Usuario("Vinicius", "vini@teste.com", "senha_hash");
+        var usuarioMock = new User("Vinicius", "vini@teste.com", "senha_hash");
 
         Authentication authMock = mock(Authentication.class);
         when(authMock.getPrincipal()).thenReturn(usuarioMock);
         when(authenticationManager.authenticate(any())).thenReturn(authMock);
         when(jwtTokenService.generateToken(usuarioMock)).thenReturn("token-jwt-gerado");
 
-        RecoveryJwtTokenDto resultado = authService.autenticarUsuario(loginDto);
+        RecoveryJwtTokenDto resultado = authService.userAuthenticate(loginDto);
 
         assertNotNull(resultado);
         assertEquals("token-jwt-gerado", resultado.token());
@@ -58,6 +58,6 @@ class AuthServiceTest {
         when(authenticationManager.authenticate(any()))
                 .thenThrow(new BadCredentialsException("Usuário ou senha inválidos"));
 
-        assertThrows(BadCredentialsException.class, () -> authService.autenticarUsuario(loginDto));
+        assertThrows(BadCredentialsException.class, () -> authService.userAuthenticate(loginDto));
     }
 }

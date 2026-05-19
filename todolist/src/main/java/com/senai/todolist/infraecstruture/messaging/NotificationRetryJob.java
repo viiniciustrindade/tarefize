@@ -3,7 +3,7 @@ package com.senai.todolist.infraecstruture.messaging;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.senai.todolist.domain.model.FailedEvent;
 import com.senai.todolist.infraecstruture.repository.FailedEventRepository;
-import com.senai.todolist.service.event.NotificacaoEvento;
+import com.senai.todolist.service.event.NotificationEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,9 +39,9 @@ public class NotificationRetryJob {
 
         for (FailedEvent failure : failures) {
             try {
-                NotificacaoEvento envelope = objectMapper.readValue(
+                NotificationEvent envelope = objectMapper.readValue(
                         failure.getPayload(),
-                        NotificacaoEvento.class
+                        NotificationEvent.class
                 );
 
                 log.debug("Tentando reenviar envelope para: {} [Template: {}]",
