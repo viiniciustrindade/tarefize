@@ -33,18 +33,18 @@ public class TaskService {
 
         taskRepository.save(task);
 
-        NotificationEvent notificacao = new NotificationEvent(
-                user.getEmail(),
-                "EMAIL",
-                "TAREFA_CRIADA",
-                Map.of(
-                    "nomeTarefa", task.getTaskName(),
-                    "descricao", task.getTaskDescription(),
-                    "dataCriacao", LocalDateTime.now().toString()
-                )
-        );
+        //NotificationEvent notificacao = new NotificationEvent(
+        //        user.getEmail(),
+        //        "EMAIL",
+        //        "TAREFA_CRIADA",
+        //        Map.of(
+        //            "nomeTarefa", task.getTaskName(),
+        //            "descricao", task.getTaskDescription(),
+        //            "dataCriacao", LocalDateTime.now().toString()
+        //        )
+        //);
 
-        notificationService.enviar(notificacao);
+        //notificationService.enviar(notificacao);
 
         return taskMapper.toResponseDto(task);
     }
@@ -88,17 +88,17 @@ public class TaskService {
 
     public void completeTask(
             Long taskId, User user  ){
-        Task tarefa = taskRepository.findByIdAndUser(taskId, user)
+        Task task = taskRepository.findByIdAndUser(taskId, user)
                 .orElseThrow(() -> new TarefaNãoExisteException(taskId));
 
-        tarefa.setCompleted(true);
-        taskRepository.save(tarefa);
+        task.setCompleted(!task.isCompleted());
+        taskRepository.save(task);
     }
 
     public TaskResponseDto findTaskById(Long taskId, User user) {
-        Task tarefa = taskRepository.findByIdAndUser(taskId,user)
+        Task task = taskRepository.findByIdAndUser(taskId,user)
                 .orElseThrow(() -> new TarefaNãoExisteException(taskId));
 
-        return taskMapper.toResponseDto(tarefa);
+        return taskMapper.toResponseDto(task);
     }
 }
