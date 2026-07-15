@@ -46,7 +46,7 @@ class UserControllerIT {
         var requisicao = new UserRequestDto("Novo Usuário", "novo@email.com", "senha123");
 
 
-        mockMvc.perform(post("/api/users")
+        mockMvc.perform(post("/api/register")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requisicao)))
@@ -64,7 +64,7 @@ class UserControllerIT {
         var requisicaoInvalida = new UserRequestDto("Nome", "email-invalido", "123");
 
 
-        mockMvc.perform(post("/api/users")
+        mockMvc.perform(post("/api/register")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requisicaoInvalida)))
