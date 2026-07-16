@@ -7,6 +7,7 @@ public record TaskResponseDto(
         String taskName,
         String taskDescription,
         int priority,
-        LocalDate createDate
+        LocalDate createDate,
+        boolean completed
 ) {
 }

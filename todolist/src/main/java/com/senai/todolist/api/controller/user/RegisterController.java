@@ -1,8 +1,6 @@
 package com.senai.todolist.api.controller.user;
 
 import com.senai.todolist.api.dto.user.register.UserRequestDto;
-import com.senai.todolist.api.dto.user.register.UserResponseDto;
-import com.senai.todolist.api.dto.user.FindUserByEmailRequestDto;
 import com.senai.todolist.api.dto.user.login.LoginUserDto;
 import com.senai.todolist.api.dto.user.login.RecoveryJwtTokenDto;
 import com.senai.todolist.service.auth.AuthService;
@@ -11,7 +9,6 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

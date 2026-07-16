@@ -16,6 +16,7 @@ public class TaskMapper {
                 task.getTaskName(),
                 task.getTaskDescription(),
                 task.getPriority(),
-                task.getCreationDate());
+                task.getCreationDate(),
+                task.isCompleted());
     }
 }

@@ -54,7 +54,7 @@ class TaskServiceTest {
 
         taskRequestDto = new TaskRequestDto("Estudar Testes", "Aprender Mockito", 5);
 
-        responseDto = new TaskResponseDto(10L, "Estudar Testes", "Aprender Mockito", 5, LocalDate.now());
+        responseDto = new TaskResponseDto(10L, "Estudar Testes", "Aprender Mockito", 5, LocalDate.now(),false);
     }
 
     @Test
