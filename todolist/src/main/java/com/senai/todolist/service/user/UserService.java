@@ -5,6 +5,7 @@ import com.senai.todolist.api.dto.user.register.UserRequestDto;
 import com.senai.todolist.api.dto.user.register.UserResponseDto;
 import com.senai.todolist.api.mapper.UserMapper;
 import com.senai.todolist.domain.exception.EmailJaCadastradoException;
+import com.senai.todolist.domain.exception.UserNotFoundException;
 import com.senai.todolist.domain.model.User;
 import com.senai.todolist.infraecstruture.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -44,7 +45,7 @@ public class UserService {
     public UserResponseDto findNameUserByEmail(
         FindUserByEmailRequestDto request) {
         User user = userRepository.findByEmail(request.email())
-            .orElseThrow(() -> new RuntimeException("User not found!"));
+            .orElseThrow(() -> new UserNotFoundException(request.email()));
 
         return userMapper.toResponseDto(user);
     }

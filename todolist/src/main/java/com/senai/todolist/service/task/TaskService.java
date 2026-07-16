@@ -3,7 +3,7 @@ package com.senai.todolist.service.task;
 import com.senai.todolist.api.dto.task.TaskPatchDto;
 import com.senai.todolist.api.dto.task.TaskRequestDto;
 import com.senai.todolist.api.dto.task.TaskResponseDto;
-import com.senai.todolist.domain.exception.TarefaNãoExisteException;
+import com.senai.todolist.domain.exception.TaskNotFoundException;
 import com.senai.todolist.api.mapper.TaskMapper;
 import com.senai.todolist.domain.model.Task;
 import com.senai.todolist.domain.model.User;
@@ -62,7 +62,7 @@ public class TaskService {
             TaskPatchDto patchDto) {
 
         Task task = taskRepository.findByIdAndUser(taskId, user)
-                .orElseThrow(() -> new TarefaNãoExisteException(taskId));
+                .orElseThrow(() -> new TaskNotFoundException(taskId));
 
         if (patchDto.taskName() != null) {
             task.setTaskName(patchDto.taskName());
@@ -80,7 +80,7 @@ public class TaskService {
 
     public void deleteTaskById(User user, Long taskId) {
         if(!taskRepository.existsByIdAndUser(taskId,user)){
-            throw new TarefaNãoExisteException(taskId);
+            throw new TaskNotFoundException(taskId);
         }
 
         taskRepository.deleteById(taskId);
@@ -89,7 +89,7 @@ public class TaskService {
     public void completeTask(
             Long taskId, User user  ){
         Task task = taskRepository.findByIdAndUser(taskId, user)
-                .orElseThrow(() -> new TarefaNãoExisteException(taskId));
+                .orElseThrow(() -> new TaskNotFoundException(taskId));
 
         task.setCompleted(!task.isCompleted());
         taskRepository.save(task);
@@ -97,7 +97,7 @@ public class TaskService {
 
     public TaskResponseDto findTaskById(Long taskId, User user) {
         Task task = taskRepository.findByIdAndUser(taskId,user)
-                .orElseThrow(() -> new TarefaNãoExisteException(taskId));
+                .orElseThrow(() -> new TaskNotFoundException(taskId));
 
         return taskMapper.toResponseDto(task);
     }

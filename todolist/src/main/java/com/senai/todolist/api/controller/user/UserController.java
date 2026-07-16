@@ -1,5 +1,6 @@
 package com.senai.todolist.api.controller.user;
 
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,9 +21,8 @@ public class UserController {
     
     @GetMapping
     public ResponseEntity<UserResponseDto>  findNameUserByEmail(
-        @RequestBody FindUserByEmailRequestDto request
+        @ParameterObject FindUserByEmailRequestDto request
     ){
         return ResponseEntity.ok().body(userService.findNameUserByEmail(request));
     }
-    
 }
