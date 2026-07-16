@@ -2,7 +2,7 @@ package com.senai.todolist.service.task;
 
 import com.senai.todolist.api.dto.task.TaskRequestDto;
 import com.senai.todolist.api.dto.task.TaskResponseDto;
-import com.senai.todolist.domain.exception.TarefaNãoExisteException;
+import com.senai.todolist.domain.exception.TaskNotFoundException;
 import com.senai.todolist.api.mapper.TaskMapper;
 import com.senai.todolist.domain.model.Task;
 import com.senai.todolist.domain.model.User;
@@ -96,7 +96,7 @@ class TaskServiceTest {
         when(taskRepository.findByIdAndUser(anyLong(), any())).thenReturn(Optional.empty());
 
         // Act & Assert
-        assertThrows(TarefaNãoExisteException.class, () -> {
+        assertThrows(TaskNotFoundException.class, () -> {
             taskService.completeTask(1L, user);
         });
 
